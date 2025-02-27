@@ -4,15 +4,21 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
-  "dependencies": {},
   "devDependencies": {
     "@nx/js": "20.4.6",
+    "@nx/react": "20.4.6",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
     "nx": "20.4.6",
     "prettier": "^2.6.2",
+    "react:app@latest": "link:@nx/react:app@latest",
+    "react:application@latest": "link:@nx/react:application@latest",
     "tslib": "^2.3.0",
     "typescript": "~5.7.2"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   }
 }
