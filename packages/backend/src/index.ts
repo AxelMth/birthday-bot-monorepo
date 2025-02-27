@@ -1,8 +1,21 @@
-import dotenv from 'dotenv';
-import { Server } from './server';
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import 'dotenv/config';
 
-dotenv.config();
+import { createExpressEndpoints } from '@ts-rest/express';
+import { birthdayRouter } from './router';
+import { birthdayContract } from './presentation/contracts/birthday.contract';
+const app = express();
 
-const port = parseInt(process.env.PORT || '3000', 10);
-const server = new Server(port);
-server.start();
+app.use(cors());
+app.use(helmet());
+app.use(express.json());
+
+createExpressEndpoints(birthdayContract, birthdayRouter, app);
+
+const port = process.env.port || 3000;
+
+app.listen(port, () => {
+  console.log(`Listening at http://localhost:${port}`);
+});
