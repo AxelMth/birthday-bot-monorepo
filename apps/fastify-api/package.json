@@ -2,6 +2,9 @@
   "name": "@birthday-bot-monorepo/fastify-api",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "dev": "pnpx tsx watch src/main.ts"
+  },
   "nx": {
     "targets": {
       "build": {
