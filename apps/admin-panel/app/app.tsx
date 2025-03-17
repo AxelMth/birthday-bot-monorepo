@@ -1,11 +1,5 @@
-import NxWelcome from './nx-welcome';
-
 export function App() {
-  return (
-    <div>
-      <NxWelcome title="admin-panel" />
-    </div>
-  );
+  return <div>Salut</div>;
 }
 
 export default App;

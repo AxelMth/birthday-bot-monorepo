@@ -5,6 +5,9 @@
   "references": [
     {
       "path": "./apps/admin-panel"
+    },
+    {
+      "path": "./apps/fastify-api"
     }
   ]
 }

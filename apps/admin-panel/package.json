@@ -2,7 +2,9 @@
   "name": "admin-panel",
   "private": true,
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "dev": "vite dev"
+  },
   "engines": {
     "node": ">=20"
   },
