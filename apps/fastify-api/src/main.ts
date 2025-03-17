@@ -1,6 +1,8 @@
 import Fastify from 'fastify';
+import { fastifyEnv } from '@fastify/env';
 
 import { initServer } from '@ts-rest/fastify';
+
 import { birthdayRouter } from './router';
 
 const host = process.env.HOST ?? 'localhost';
@@ -12,7 +14,7 @@ const server = Fastify({
 });
 
 // env
-server.register(require('fastify-env'), {
+server.register(fastifyEnv, {
   schema: {
     type: 'object',
     required: ['PORT'],
