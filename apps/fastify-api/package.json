@@ -71,6 +71,7 @@
     }
   },
   "dependencies": {
-    "@birthday-bot-monorepo/contracts": "workspace:*"
+    "@birthday-bot-monorepo/contracts": "workspace:*",
+    "@fastify/cors": "^11.0.0"
   }
 }

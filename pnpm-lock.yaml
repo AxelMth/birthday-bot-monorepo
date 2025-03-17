@@ -222,6 +222,9 @@ importers:
 
   apps/admin-panel:
     dependencies:
+      '@birthday-bot-monorepo/contracts':
+        specifier: workspace:*
+        version: link:../../libs/contracts
       '@react-router/node':
         specifier: ^7.2.0
         version: 7.3.0(react-router@7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)
@@ -265,12 +268,21 @@ importers:
       '@birthday-bot-monorepo/contracts':
         specifier: workspace:*
         version: link:../../libs/contracts
+      '@fastify/cors':
+        specifier: ^11.0.0
+        version: 11.0.0
 
   libs/contracts:
     dependencies:
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.15
+      '@ts-rest/core':
+        specifier: ^3.52.1
+        version: 3.52.1(@types/node@20.17.24)(zod@3.24.2)
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
 
 packages:
 

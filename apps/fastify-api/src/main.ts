@@ -13,6 +13,11 @@ const server = Fastify({
   logger: true,
 });
 
+// cors
+server.register(require('@fastify/cors'), {
+  origin: 'http://localhost:4200',
+});
+
 // env
 server.register(fastifyEnv, {
   schema: {

@@ -1,6 +1,22 @@
 import { For, Stack, Table, Container } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { client } from './lib/client';
 
 export default function App() {
+  useEffect(() => {
+    const month = new Date().getMonth() + 1;
+    client
+      .getNextBirthdays({
+        query: {
+          date: `${new Date().getFullYear() + 1}-${
+            month < 10 ? `0${month}` : `${month}`
+          }-${new Date().getDate()}`,
+        },
+      })
+      .then((birthdays) => {
+        console.log(birthdays);
+      });
+  });
   return (
     <Container maxW="container.xl">
       <Stack gap="10">
