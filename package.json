@@ -9,15 +9,22 @@
     "@emotion/react": "^11.14.0",
     "@fastify/autoload": "~6.0.3",
     "@fastify/cors": "^11.0.0",
+    "@fastify/env": "^5.0.2",
     "@fastify/sensible": "~6.0.2",
     "@react-router/node": "^7.2.0",
     "@react-router/serve": "^7.2.0",
+    "@ts-rest/core": "^3.52.1",
+    "@ts-rest/fastify": "^3.52.1",
+    "axios": "^1.8.3",
+    "drizzle-orm": "^0.40.1",
     "fastify": "~5.2.1",
     "fastify-plugin": "~5.0.1",
     "isbot": "^4.4.0",
+    "pg": "^8.14.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-router": "^7.3.0"
+    "react-router": "^7.3.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",

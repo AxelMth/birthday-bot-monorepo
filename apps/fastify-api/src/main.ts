@@ -1,5 +1,7 @@
 import Fastify from 'fastify';
-import { app } from './app/app';
+
+import { initServer } from '@ts-rest/fastify';
+import { birthdayRouter } from './router';
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -9,8 +11,27 @@ const server = Fastify({
   logger: true,
 });
 
-// Register your application as a normal plugin.
-server.register(app);
+// env
+server.register(require('fastify-env'), {
+  schema: {
+    type: 'object',
+    required: ['PORT'],
+    properties: {
+      PORT: {
+        type: 'number',
+        default: 3000,
+      },
+      DATABASE_URL: {
+        type: 'string',
+      },
+    },
+  },
+  dotenv: true,
+});
+
+// Routes
+const s = initServer();
+server.register(s.plugin(birthdayRouter));
 
 // Start listening.
 server.listen({ port, host }, (err) => {
