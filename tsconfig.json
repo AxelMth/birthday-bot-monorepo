@@ -8,6 +8,12 @@
     },
     {
       "path": "./apps/fastify-api"
+    },
+    {
+      "path": "./libs"
+    },
+    {
+      "path": "./libs/contracts"
     }
   ]
 }

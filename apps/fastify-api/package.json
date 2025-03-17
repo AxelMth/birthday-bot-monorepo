@@ -69,5 +69,8 @@
         }
       }
     }
+  },
+  "dependencies": {
+    "@birthday-bot-monorepo/contracts": "workspace:*"
   }
 }

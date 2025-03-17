@@ -4,8 +4,8 @@ import {
   sendTodayBirthdayMessagesResponseSchema,
   getNextBirthdaysUntilQuerySchema,
   getNextBirthdaysUntilResponseSchema,
-} from '../schemas/birthday.schema';
-import { errorBodySchema } from '../schemas/error.schema';
+} from './birthday.schema.js';
+import { errorBodySchema } from '../common/schemas/error.schema.js';
 
 const c = initContract();
 
