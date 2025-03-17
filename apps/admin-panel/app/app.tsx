@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
+import { Button, HStack } from '@chakra-ui/react';
+import { useState } from 'react';
 
-export function App() {
-  const [data, setData] = useState<string>('');
-  useEffect(() => {
-    fetch(import.meta.env.VITE_SERVER_URL as string)
-      .then((res) => res.json())
-      .then((data) => setData(JSON.stringify(data, null, 4)));
-  });
-  return <div>{data}</div>;
+export default function App() {
+  const [count, setCount] = useState(0);
+  return (
+    <HStack>
+      <p>Count: {count}</p>
+      <Button onClick={() => setCount((prev) => prev + 1)}>Click me</Button>
+    </HStack>
+  );
 }
-
-export default App;

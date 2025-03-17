@@ -9,6 +9,7 @@ import {
 } from 'react-router';
 
 import { AppNav } from './app-nav';
+import { Provider } from './components/ui/provider';
 
 export const meta: MetaFunction = () => [
   {
@@ -49,5 +50,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <Provider>
+      <Outlet />
+    </Provider>
+  );
 }
