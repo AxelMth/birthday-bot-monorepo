@@ -8,9 +8,9 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js",
+      "default": "./dist/src/index.js"
     }
   },
   "nx": {
@@ -24,9 +24,7 @@
         "options": {
           "outputPath": "libs/contracts/dist",
           "main": "libs/contracts/src/index.ts",
-          "tsConfig": "libs/contracts/tsconfig.lib.json",
-          "skipTypeCheck": true,
-          "stripLeadingPaths": true
+          "tsConfig": "libs/contracts/tsconfig.lib.json"
         }
       }
     }

@@ -1,1 +1,2 @@
-export { birthdayContract } from './birthday/birthday.contract.js';
+export * from './birthday';
+export * from './people';

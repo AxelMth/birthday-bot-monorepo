@@ -7,8 +7,18 @@ import { Person } from '../../domain/entities/person';
 import { DatabasePersonAdapter } from '../adapters/database-user.adapter';
 
 export class DatabaseUserRepository implements PersonRepository {
-  async getPeople(): Promise<Person[]> {
-    const _users = await db.select().from(people).execute();
+  async getPeople(
+    { limit, offset }: { limit: number; offset: number } = {
+      limit: 10,
+      offset: 0,
+    }
+  ): Promise<Person[]> {
+    const _users = await db
+      .select()
+      .from(people)
+      .limit(limit)
+      .offset(offset)
+      .execute();
     return _users.map(DatabasePersonAdapter.toDomain);
   }
 

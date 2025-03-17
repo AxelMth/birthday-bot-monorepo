@@ -3,7 +3,7 @@ import { fastifyEnv } from '@fastify/env';
 
 import { initServer } from '@ts-rest/fastify';
 
-import { birthdayRouter } from './router';
+import { birthdayRouter, peopleRouter } from './presentation/routers';
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -39,6 +39,7 @@ server.register(fastifyEnv, {
 // Routes
 const s = initServer();
 server.register(s.plugin(birthdayRouter));
+server.register(s.plugin(peopleRouter));
 
 // Start listening.
 server.listen({ port, host }, (err) => {
