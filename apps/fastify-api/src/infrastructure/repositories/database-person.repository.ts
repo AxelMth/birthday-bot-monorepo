@@ -18,6 +18,7 @@ export class DatabaseUserRepository implements PersonRepository {
       .from(people)
       .limit(limit)
       .offset(offset)
+      .orderBy(people.name)
       .execute();
     return _users.map(DatabasePersonAdapter.toDomain);
   }
