@@ -68,7 +68,16 @@ export default function EditPersonComponent() {
         <Fieldset.Content>
           <Field.Root>
             <Field.Label>Nom</Field.Label>
-            <Input name="name" value={person.name} />
+            <Input
+              name="name"
+              value={person.name}
+              onChange={(e) =>
+                setPerson({
+                  ...person,
+                  name: e.target.value,
+                })
+              }
+            />
           </Field.Root>
 
           <Field.Root>
@@ -76,7 +85,14 @@ export default function EditPersonComponent() {
             <Input
               name="date"
               type="date"
-              value={person.birthdate.toDateString()}
+              value={`${person.birthdate.toISOString().split('T')[0]}`}
+              onChange={(e) => {
+                const date = new Date(e.target.value);
+                setPerson({
+                  ...person,
+                  birthdate: date,
+                });
+              }}
             />
           </Field.Root>
 
