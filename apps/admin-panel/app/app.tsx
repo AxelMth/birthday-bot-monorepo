@@ -22,9 +22,10 @@ const PAGE_SIZE = 10;
 export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [people, setPeople] = useState<Person[]>([]);
+  const [count, setCount] = useState(0);
   useEffect(() => {
     peopleClient
-      .getPeopleWithCommunications({
+      .getPaginatedPeople({
         query: {
           pageSize: PAGE_SIZE,
           pageNumber: currentPage,
@@ -34,6 +35,7 @@ export default function App() {
         if (res.status !== 200) {
           return;
         }
+        setCount(res.body.count);
         setPeople(res.body.people);
       });
   }, [currentPage]);
@@ -62,7 +64,7 @@ export default function App() {
           </Table.Body>
         </Table.Root>
 
-        <Pagination.Root count={20} pageSize={2} page={currentPage}>
+        <Pagination.Root count={count} pageSize={PAGE_SIZE} page={currentPage}>
           <ButtonGroup variant="ghost" size={'lg'}>
             <Pagination.PrevTrigger
               asChild
@@ -75,7 +77,10 @@ export default function App() {
 
             <Pagination.Items
               render={(page) => (
-                <IconButton variant={{ base: 'ghost', _selected: 'outline' }}>
+                <IconButton
+                  variant={{ base: 'ghost', _selected: 'outline' }}
+                  onClick={() => setCurrentPage(page.value)}
+                >
                   {page.value}
                 </IconButton>
               )}
