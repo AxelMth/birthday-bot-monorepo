@@ -15,6 +15,7 @@ import {
 } from 'react-icons/lu';
 
 import { peopleClient } from './lib/client';
+import { isAppRouteOtherResponse } from '@ts-rest/core';
 
 interface Person {
   id: number;
@@ -61,7 +62,7 @@ export default function App() {
             {people.map((person) => (
               <Table.Row key={person.id}>
                 <Table.Cell>{person.name}</Table.Cell>
-                <Table.Cell>{person.birthdate.toString()}</Table.Cell>
+                <Table.Cell>{formatDate(person.birthdate)}</Table.Cell>
                 <Table.Cell>
                   {person.communications.map((c) => c.application)}
                 </Table.Cell>
@@ -116,3 +117,12 @@ export default function App() {
     </Container>
   );
 }
+
+const formatDate = (date: Date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const formattedMonth = month < 10 ? `0${month}` : month;
+  const day = date.getDate();
+  const formattedDay = day < 10 ? `0${day}` : day;
+  return `${year}-${formattedMonth}-${formattedDay}`;
+};
