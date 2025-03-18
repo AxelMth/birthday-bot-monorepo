@@ -1,8 +1,10 @@
 import { initClient } from '@ts-rest/core';
-import { birthdayContract } from '@birthday-bot-monorepo/contracts';
+import { peopleContract } from '@birthday-bot-monorepo/contracts';
 
-export const client = initClient(birthdayContract, {
-  baseUrl: import.meta.env.VITE_SERVER_URL,
+const baseUrl = import.meta.env.VITE_SERVER_URL;
+export const peopleClient = initClient(peopleContract, {
+  baseUrl,
+  jsonQuery: true,
   baseHeaders: {
     'Content-Type': 'application/json',
     'Allow-Control-Allow-Origin': '*',

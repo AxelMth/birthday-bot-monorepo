@@ -1,56 +1,72 @@
-import { For, Stack, Table, Container } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { client } from './lib/client';
+import {
+  Stack,
+  Table,
+  Container,
+  Pagination,
+  IconButton,
+  ButtonGroup,
+} from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
+
+import { peopleClient } from './lib/client';
 
 export default function App() {
+  const [people, setPeople] = useState<unknown[]>([]);
   useEffect(() => {
-    const month = new Date().getMonth() + 1;
-    client
-      .getNextBirthdays({
-        query: {
-          date: `${new Date().getFullYear() + 1}-${
-            month < 10 ? `0${month}` : `${month}`
-          }-${new Date().getDate()}`,
-        },
-      })
-      .then((birthdays) => {
-        console.log(birthdays);
-      });
-  });
+    peopleClient.getPeopleWithCommunications().then((response) => {
+      const body = response.body;
+      setPeople(body.people);
+    });
+  }, []);
   return (
     <Container maxW="container.xl">
       <Stack gap="10">
-        <For each={['sm', 'md', 'lg']}>
-          {(size) => (
-            <Table.Root key={size} size={size}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.ColumnHeader>Product</Table.ColumnHeader>
-                  <Table.ColumnHeader>Category</Table.ColumnHeader>
-                  <Table.ColumnHeader textAlign="end">Price</Table.ColumnHeader>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {items.map((item) => (
-                  <Table.Row key={item.id}>
-                    <Table.Cell>{item.name}</Table.Cell>
-                    <Table.Cell>{item.category}</Table.Cell>
-                    <Table.Cell textAlign="end">{item.price}</Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table.Root>
-          )}
-        </For>
+        <Table.Root key={'lg'} size={'lg'}>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Nom</Table.ColumnHeader>
+              <Table.ColumnHeader>Date de naissance</Table.ColumnHeader>
+              <Table.ColumnHeader>Communications</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {people.map((person) => (
+              <Table.Row key={person.id}>
+                <Table.Cell>{person.name}</Table.Cell>
+                <Table.Cell>{person.birthdate}</Table.Cell>
+                <Table.Cell>
+                  {person.communications.map((c) => c.application)}
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table.Root>
+
+        <Pagination.Root count={20} pageSize={2} defaultPage={1}>
+          <ButtonGroup variant="ghost" size={'lg'}>
+            <Pagination.PrevTrigger asChild>
+              <IconButton>
+                <LuChevronLeft />
+              </IconButton>
+            </Pagination.PrevTrigger>
+
+            <Pagination.Items
+              render={(page) => (
+                <IconButton variant={{ base: 'ghost', _selected: 'outline' }}>
+                  {page.value}
+                </IconButton>
+              )}
+            />
+
+            <Pagination.NextTrigger asChild>
+              <IconButton>
+                <LuChevronRight />
+              </IconButton>
+            </Pagination.NextTrigger>
+          </ButtonGroup>
+        </Pagination.Root>
       </Stack>
     </Container>
   );
 }
-
-const items = [
-  { id: 1, name: 'Laptop', category: 'Electronics', price: 999.99 },
-  { id: 2, name: 'Coffee Maker', category: 'Home Appliances', price: 49.99 },
-  { id: 3, name: 'Desk Chair', category: 'Furniture', price: 150.0 },
-  { id: 4, name: 'Smartphone', category: 'Electronics', price: 799.99 },
-  { id: 5, name: 'Headphones', category: 'Accessories', price: 199.99 },
-];
