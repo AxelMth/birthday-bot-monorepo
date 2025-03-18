@@ -10,7 +10,7 @@ export const getPeopleResponseSchema = z.object({
     z.object({
       id: z.number(),
       name: z.string(),
-      birthdate: z.date(),
+      birthdate: z.coerce.date(),
       communications: z.array(
         z.object({
           id: z.number(),

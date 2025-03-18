@@ -5,6 +5,7 @@ const baseUrl = import.meta.env.VITE_SERVER_URL;
 export const peopleClient = initClient(peopleContract, {
   baseUrl,
   jsonQuery: true,
+  validateResponse: true,
   baseHeaders: {
     'Content-Type': 'application/json',
     'Allow-Control-Allow-Origin': '*',

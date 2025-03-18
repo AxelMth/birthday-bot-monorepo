@@ -15,7 +15,7 @@ const server = Fastify({
 
 // cors
 server.register(require('@fastify/cors'), {
-  origin: 'http://localhost:4200',
+  origin: '*',
 });
 
 // env

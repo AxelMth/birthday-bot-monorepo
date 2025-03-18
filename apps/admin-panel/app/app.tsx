@@ -11,14 +11,33 @@ import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 
 import { peopleClient } from './lib/client';
 
+interface Person {
+  id: number;
+  name: string;
+  birthdate: Date;
+  communications: { application: string }[];
+}
+
+const PAGE_SIZE = 10;
 export default function App() {
-  const [people, setPeople] = useState<unknown[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [people, setPeople] = useState<Person[]>([]);
   useEffect(() => {
-    peopleClient.getPeopleWithCommunications().then((response) => {
-      const body = response.body;
-      setPeople(body.people);
-    });
-  }, []);
+    peopleClient
+      .getPeopleWithCommunications({
+        query: {
+          pageSize: PAGE_SIZE,
+          pageNumber: currentPage,
+        },
+      })
+      .then((res) => {
+        if (res.status !== 200) {
+          return;
+        }
+        setPeople(res.body.people);
+      });
+  }, [currentPage]);
+
   return (
     <Container maxW="container.xl">
       <Stack gap="10">
@@ -34,7 +53,7 @@ export default function App() {
             {people.map((person) => (
               <Table.Row key={person.id}>
                 <Table.Cell>{person.name}</Table.Cell>
-                <Table.Cell>{person.birthdate}</Table.Cell>
+                <Table.Cell>{person.birthdate.toString()}</Table.Cell>
                 <Table.Cell>
                   {person.communications.map((c) => c.application)}
                 </Table.Cell>
@@ -43,9 +62,12 @@ export default function App() {
           </Table.Body>
         </Table.Root>
 
-        <Pagination.Root count={20} pageSize={2} defaultPage={1}>
+        <Pagination.Root count={20} pageSize={2} page={currentPage}>
           <ButtonGroup variant="ghost" size={'lg'}>
-            <Pagination.PrevTrigger asChild>
+            <Pagination.PrevTrigger
+              asChild
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
               <IconButton>
                 <LuChevronLeft />
               </IconButton>
@@ -59,7 +81,10 @@ export default function App() {
               )}
             />
 
-            <Pagination.NextTrigger asChild>
+            <Pagination.NextTrigger
+              asChild
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
               <IconButton>
                 <LuChevronRight />
               </IconButton>
