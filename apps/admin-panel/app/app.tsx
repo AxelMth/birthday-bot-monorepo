@@ -7,6 +7,7 @@ import {
   ButtonGroup,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import {
   LuChevronLeft,
   LuChevronRight,
@@ -15,7 +16,6 @@ import {
 } from 'react-icons/lu';
 
 import { peopleClient } from './lib/client';
-import { isAppRouteOtherResponse } from '@ts-rest/core';
 
 interface Person {
   id: number;
@@ -46,6 +46,11 @@ export default function App() {
       });
   }, [currentPage]);
 
+  const navigate = useNavigate();
+  const goToEditPerson = (id: number): void => {
+    navigate(`/person/${id}/edit`);
+  };
+
   return (
     <Container maxW="container.xl">
       <Stack gap="10">
@@ -68,7 +73,10 @@ export default function App() {
                 </Table.Cell>
                 <Table.Cell>
                   <ButtonGroup>
-                    <IconButton variant="ghost">
+                    <IconButton
+                      variant="ghost"
+                      onClick={() => goToEditPerson(person.id)}
+                    >
                       <LuPencil />
                     </IconButton>
                     <IconButton variant="ghost">
