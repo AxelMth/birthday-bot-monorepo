@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm';
+import { sql, count } from 'drizzle-orm';
 
 import { PersonRepository } from '../../application/ports/output/person.repository';
 import { db } from '../../db';
@@ -21,6 +21,13 @@ export class DatabaseUserRepository implements PersonRepository {
       .orderBy(people.name)
       .execute();
     return _users.map(DatabasePersonAdapter.toDomain);
+  }
+
+  async getPeopleCount(): Promise<number> {
+    const [{ count: counter }] = await await db
+      .select({ count: count() })
+      .from(people);
+    return counter;
   }
 
   async getPeopleByBirthday(date: Date): Promise<Person[]> {

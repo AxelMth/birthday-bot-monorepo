@@ -16,13 +16,14 @@ const peopleService = new PeopleService(
 );
 
 export const peopleRouter = s.router(peopleContract, {
-  getPeopleWithCommunications: async ({ query }) => {
+  getPaginatedPeople: async ({ query }) => {
     try {
-      const people = await peopleService.getPeopleWithCommunications(query);
+      const { people, count } = await peopleService.getPaginatedPeople(query);
       return {
         status: 200,
         body: {
           people,
+          count,
         },
       };
     } catch (error) {

@@ -4,8 +4,8 @@ import { getPeopleQuerySchema } from '@birthday-bot-monorepo/contracts';
 import { CommunicationRepository } from '../ports/output/communication.repository';
 import { PersonRepository } from '../ports/output/person.repository';
 import {
+  PaginatedPeopleWithCommunications,
   PeopleUseCase,
-  PersonWithCommunications,
 } from '../ports/input/people.use-case';
 
 export class PeopleService implements PeopleUseCase {
@@ -14,14 +14,15 @@ export class PeopleService implements PeopleUseCase {
     private readonly communicationRepository: CommunicationRepository
   ) {}
 
-  async getPeopleWithCommunications(
+  async getPaginatedPeople(
     query: z.infer<typeof getPeopleQuerySchema>
-  ): Promise<PersonWithCommunications[]> {
+  ): Promise<PaginatedPeopleWithCommunications> {
+    const peopleCount = await this.personRepository.getPeopleCount();
     const people = await this.personRepository.getPeople({
       limit: query.pageSize,
       offset: query.pageSize * (query.pageNumber - 1),
     });
-    return Promise.all(
+    const peopleWithCommunications = await Promise.all(
       people.map(async (person) => {
         const communications = await this.communicationRepository.getByPersonId(
           person.id
@@ -29,5 +30,9 @@ export class PeopleService implements PeopleUseCase {
         return { ...person, communications };
       })
     );
+    return {
+      people: peopleWithCommunications,
+      count: peopleCount,
+    };
   }
 }

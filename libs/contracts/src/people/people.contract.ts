@@ -8,7 +8,7 @@ import { errorBodySchema } from '../common/schemas/error.schema.js';
 const c = initContract();
 
 export const peopleContract = c.router({
-  getPeopleWithCommunications: {
+  getPaginatedPeople: {
     method: 'GET',
     path: '/api/people',
     responses: {

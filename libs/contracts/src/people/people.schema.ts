@@ -6,6 +6,7 @@ export const getPeopleQuerySchema = z.object({
 });
 
 export const getPeopleResponseSchema = z.object({
+  count: z.number(),
   people: z.array(
     z.object({
       id: z.number(),

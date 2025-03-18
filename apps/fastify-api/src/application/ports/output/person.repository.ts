@@ -8,6 +8,7 @@ export interface PersonRepository {
     limit: number;
     offset: number;
   }): Promise<Person[]>;
+  getPeopleCount(): Promise<number>;
   getPeopleByBirthday(date: Date): Promise<Person[]>;
   getPeopleByBirthdayRange(startDate: Date, endDate: Date): Promise<Person[]>;
 }
