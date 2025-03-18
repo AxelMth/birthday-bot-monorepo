@@ -12,4 +12,6 @@ export interface PersonRepository {
   getPeopleCount(): Promise<number>;
   getPeopleByBirthday(date: Date): Promise<Person[]>;
   getPeopleByBirthdayRange(startDate: Date, endDate: Date): Promise<Person[]>;
+  updatePersonById(id: number, person: Person): Promise<void>;
+  createPerson(person: Person): Promise<Person>;
 }

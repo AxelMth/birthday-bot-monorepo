@@ -69,4 +69,31 @@ export class DatabaseUserRepository implements PersonRepository {
       .execute();
     return _users.map(DatabasePersonAdapter.toDomain);
   }
+
+  async updatePersonById(id: number, person: Person): Promise<void> {
+    await db
+      .update(people)
+      .set({
+        name: person.name,
+        birthDate: person.birthdate.toISOString(),
+      })
+      .where(eq(people.id, id))
+      .execute();
+  }
+
+  async createPerson(person: Person): Promise<Person> {
+    const [user] = await db
+      .insert(people)
+      .values({
+        name: person.name,
+        birthDate: person.birthdate.toISOString(),
+      })
+      .returning({
+        id: people.id,
+        name: people.name,
+        birthDate: people.birthDate,
+      })
+      .execute();
+    return DatabasePersonAdapter.toDomain(user);
+  }
 }

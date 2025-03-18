@@ -1,4 +1,4 @@
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import {
   Button,
   Container,
@@ -11,6 +11,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+
 import { peopleClient } from '../lib/client';
 
 interface Person {
@@ -22,10 +23,9 @@ interface Person {
 
 export default function EditPersonComponent() {
   const params = useParams();
-  const personId = params.id;
+  const personId = +(params?.id ?? '0');
 
   const [person, setPerson] = useState<Person | null>(null);
-
   useEffect(() => {
     if (!personId || !+personId) {
       return;
@@ -42,7 +42,22 @@ export default function EditPersonComponent() {
       });
   }, [personId]);
 
-  if (!personId || !+personId) {
+  const navigate = useNavigate();
+  const updatePersonById = (personId: number, person: Person) => {
+    peopleClient
+      .updatePersonById({
+        params: { id: personId },
+        body: person,
+      })
+      .then((response) => {
+        if (response.status !== 200) {
+          return;
+        }
+        navigate(`/`);
+      });
+  };
+
+  if (!personId) {
     return (
       <Container>
         <p>Identifiant invalide</p>
@@ -113,7 +128,11 @@ export default function EditPersonComponent() {
           </Field.Root>
         </Fieldset.Content>
 
-        <Button type="submit" alignSelf="flex-start">
+        <Button
+          type="submit"
+          alignSelf="flex-start"
+          onClick={() => updatePersonById(person.id, person)}
+        >
           Modifier
         </Button>
       </Fieldset.Root>

@@ -18,4 +18,8 @@ export interface PeopleUseCase {
     query: z.infer<typeof getPeopleQuerySchema>
   ): Promise<PaginatedPeopleWithCommunications>;
   getPersonById(id: number): Promise<PersonWithCommunications>;
+  updatePersonById(
+    id: number,
+    person: Person
+  ): Promise<PersonWithCommunications>;
 }

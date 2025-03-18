@@ -16,6 +16,54 @@ const peopleService = new PeopleService(
 );
 
 export const peopleRouter = s.router(peopleContract, {
+  createPerson: async ({ body }) => {
+    try {
+      const person = await peopleService.createPerson(body);
+      return {
+        status: 200,
+        body: person,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        return {
+          status: 500,
+          body: {
+            error: error.message,
+          },
+        };
+      }
+      return {
+        status: 500,
+        body: {
+          error: 'An error occurred',
+        },
+      };
+    }
+  },
+  updatePersonById: async ({ params, body }) => {
+    try {
+      const person = await peopleService.updatePersonById(params.id, body);
+      return {
+        status: 200,
+        body: person,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        return {
+          status: 500,
+          body: {
+            error: error.message,
+          },
+        };
+      }
+      return {
+        status: 500,
+        body: {
+          error: 'An error occurred',
+        },
+      };
+    }
+  },
   getPersonById: async ({ params }) => {
     try {
       const person = await peopleService.getPersonById(params.id);
