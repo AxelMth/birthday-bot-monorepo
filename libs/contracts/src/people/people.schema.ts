@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 export const getPeopleQuerySchema = z.object({
-  pageSize: z.number().optional().default(10),
-  pageNumber: z.number().optional().default(1),
+  pageSize: z.coerce.number().optional().default(10),
+  pageNumber: z.coerce.number().optional().default(1),
 });
 
 export const getPeopleResponseSchema = z.object({
