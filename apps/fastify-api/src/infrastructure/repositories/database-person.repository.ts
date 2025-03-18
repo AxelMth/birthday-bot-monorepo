@@ -1,4 +1,4 @@
-import { sql, count } from 'drizzle-orm';
+import { sql, count, eq } from 'drizzle-orm';
 
 import { PersonRepository } from '../../application/ports/output/person.repository';
 import { db } from '../../db';
@@ -7,7 +7,16 @@ import { Person } from '../../domain/entities/person';
 import { DatabasePersonAdapter } from '../adapters/database-user.adapter';
 
 export class DatabaseUserRepository implements PersonRepository {
-  async getPeople(
+  async getPeopleById(id: number): Promise<Person> {
+    const [user] = await db
+      .select()
+      .from(people)
+      .where(eq(people.id, id))
+      .execute();
+    return DatabasePersonAdapter.toDomain(user);
+  }
+
+  async getPaginatedPeople(
     { limit, offset }: { limit: number; offset: number } = {
       limit: 10,
       offset: 0,

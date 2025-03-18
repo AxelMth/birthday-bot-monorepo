@@ -16,6 +16,30 @@ const peopleService = new PeopleService(
 );
 
 export const peopleRouter = s.router(peopleContract, {
+  getPersonById: async ({ params }) => {
+    try {
+      const person = await peopleService.getPersonById(params.id);
+      return {
+        status: 200,
+        body: person,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        return {
+          status: 500,
+          body: {
+            error: error.message,
+          },
+        };
+      }
+      return {
+        status: 500,
+        body: {
+          error: 'An error occurred',
+        },
+      };
+    }
+  },
   getPaginatedPeople: async ({ query }) => {
     try {
       const { people, count } = await peopleService.getPaginatedPeople(query);
