@@ -7,7 +7,12 @@ import {
   ButtonGroup,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
+import {
+  LuChevronLeft,
+  LuChevronRight,
+  LuPencil,
+  LuTrash,
+} from 'react-icons/lu';
 
 import { peopleClient } from './lib/client';
 
@@ -49,6 +54,7 @@ export default function App() {
               <Table.ColumnHeader>Nom</Table.ColumnHeader>
               <Table.ColumnHeader>Date de naissance</Table.ColumnHeader>
               <Table.ColumnHeader>Communications</Table.ColumnHeader>
+              <Table.ColumnHeader>Actions</Table.ColumnHeader>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -58,6 +64,16 @@ export default function App() {
                 <Table.Cell>{person.birthdate.toString()}</Table.Cell>
                 <Table.Cell>
                   {person.communications.map((c) => c.application)}
+                </Table.Cell>
+                <Table.Cell>
+                  <ButtonGroup>
+                    <IconButton variant="ghost">
+                      <LuPencil />
+                    </IconButton>
+                    <IconButton variant="ghost">
+                      <LuTrash />
+                    </IconButton>
+                  </ButtonGroup>
                 </Table.Cell>
               </Table.Row>
             ))}
