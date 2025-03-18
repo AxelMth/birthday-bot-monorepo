@@ -5,6 +5,7 @@ import {
   Pagination,
   IconButton,
   ButtonGroup,
+  Loader,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -50,6 +51,14 @@ export default function App() {
   const goToEditPerson = (id: number): void => {
     navigate(`/person/${id}/edit`);
   };
+
+  if (!people.length) {
+    return (
+      <Container>
+        <Loader />
+      </Container>
+    );
+  }
 
   return (
     <Container maxW="container.xl">
