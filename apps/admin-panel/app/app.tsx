@@ -6,6 +6,9 @@ import {
   IconButton,
   ButtonGroup,
   Loader,
+  Wrap,
+  Input,
+  Button,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -61,8 +64,14 @@ export default function App() {
   }
 
   return (
-    <Container maxW="container.xl">
+    <Container maxW="container.xl" padding={16}>
       <Stack gap="10">
+        <Wrap justify="space-between" flexWrap={'nowrap'}>
+          <Input placeholder="Rechercher" />
+          <ButtonGroup>
+            <Button>Créer une personne</Button>
+          </ButtonGroup>
+        </Wrap>
         <Table.Root key={'lg'} size={'lg'}>
           <Table.Header>
             <Table.Row>
