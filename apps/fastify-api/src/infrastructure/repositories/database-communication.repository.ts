@@ -16,4 +16,23 @@ export class DatabaseCommunicationRepository
       .where(eq(contactMethods.personId, personId));
     return _communications.map(DatabaseCommunicationAdapter.toDomain);
   }
+
+  async createCommunication(
+    communication: Communication
+  ): Promise<Communication> {
+    const [id] = await db
+      .insert(contactMethods)
+      .values(DatabaseCommunicationAdapter.toDatabase(communication));
+    return { ...communication, id };
+  }
+
+  async updateCommunicationById(
+    id: number,
+    communication: Communication
+  ): Promise<void> {
+    await db
+      .update(contactMethods)
+      .set(DatabaseCommunicationAdapter.toDatabase(communication))
+      .where(eq(contactMethods.id, id));
+  }
 }

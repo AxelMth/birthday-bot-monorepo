@@ -4,7 +4,7 @@ import { date, integer, pgTable, varchar, pgEnum } from 'drizzle-orm/pg-core';
 // Enums
 export const contactMethodAppEnum = pgEnum('contact_method_app', [
   'slack',
-  'teams',
+  'email',
 ]);
 
 export const groupTypeEnum = pgEnum('group_type', [
