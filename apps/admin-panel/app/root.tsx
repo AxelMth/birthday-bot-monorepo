@@ -9,6 +9,7 @@ import {
 } from 'react-router';
 
 import { Provider } from './components/ui/provider';
+import { Container } from '@chakra-ui/react';
 
 export const meta: MetaFunction = () => [
   {
@@ -50,7 +51,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <Provider>
-      <Outlet />
+      <Container padding={16}>
+        <Outlet />
+      </Container>
     </Provider>
   );
 }

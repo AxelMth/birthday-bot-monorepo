@@ -8,7 +8,6 @@ import {
   Input,
   Loader,
   NativeSelect,
-  Stack,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
@@ -75,11 +74,8 @@ export default function EditPersonComponent() {
 
   return (
     <Container fluid centerContent>
+      <h1>Modifier un anniversaire</h1>
       <Fieldset.Root size="lg" maxW="md">
-        <Stack>
-          <Fieldset.Legend>Edition d'un anniversaire</Fieldset.Legend>
-        </Stack>
-
         <Fieldset.Content>
           <Field.Root>
             <Field.Label>Nom</Field.Label>

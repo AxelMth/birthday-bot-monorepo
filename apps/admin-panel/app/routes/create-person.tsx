@@ -7,7 +7,6 @@ import {
   For,
   Input,
   NativeSelect,
-  Stack,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -44,11 +43,8 @@ export default function CreatePersonComponent() {
 
   return (
     <Container fluid centerContent>
+      <h1>Créer un anniversaire</h1>
       <Fieldset.Root size="lg" maxW="md">
-        <Stack>
-          <Fieldset.Legend>Création d'un anniversaire</Fieldset.Legend>
-        </Stack>
-
         <Fieldset.Content>
           <Field.Root>
             <Field.Label>Nom</Field.Label>
